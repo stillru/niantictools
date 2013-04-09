@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-$text = "ttp://www.ingress.com/intel?latE6=55615381&lngE6=37586059&z=19;";
+$text = "http://www.ingress.com/intel?latE6=55615381&lngE6=37586059&z=19";
 #$text = "X=5; z117e=3.14l6; temp=lQ24;";
 $docycle = 1; $counter = 0;
 while ($docycle) { 
