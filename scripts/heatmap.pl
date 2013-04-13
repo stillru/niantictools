@@ -4,7 +4,7 @@ use strict;
 use Getopt::Std;
 
 my %options=();
-
+my $date;
 my $faction;
 my $strings;
 my $nickname;
@@ -46,11 +46,12 @@ sub res {
 	print "| Resistance Players  |\n";
 	print "-----------------------\n";
 	foreach $line (@strings) {
- 		if ($line =~ m/(03DC03)/g) {$faction = $1;}
+		if ($line =~ m/title\=\"(\d{4}\-\d{1,2}-\d{1,2}\s\d{2}\:\d{2}\:\d{2})/g) {$date = $1;}
+ 		if ($line =~ m/(03DC03)/g) {$faction = "RESISTANCE";}
   		if ($line =~ m/event,\s(\'\w*\')/g) {$nickname = $1;}
   		if ($line =~ m/(\d{2}\.\d*),\s(\d{2}\.\d*)/g) {$long = $1; $lat = $2;}
-  		if (defined($nickname) and defined($long) and defined($lat) and defined($faction)) {
-    			print "Resistance player $nickname - $long $lat \n";
+  		if (defined($nickname) and defined($long) and defined($lat) and ($faction = "RESISTANCE")) {
+    			print "$faction player $nickname at $date - $long $lat \n";
 			open (NEW,">>Resistance.txt");
 			print NEW "$long $lat \n";
 			close(NEW);
@@ -58,6 +59,7 @@ sub res {
 			undef($long);
 			undef($lat);
 			undef($faction);
+			undef($date);
 		}
                 else {
 		print "Nothing to do...\n";
@@ -74,11 +76,12 @@ sub enl {
 	print "| Enlightent Players  |\n";
 	print "-----------------------\n";
 	foreach $line (@strings) {
- 		if ($line =~ m/(0088FF)/g) {$faction = $1;}
+		if ($line =~ m/title\=\"(\d{4}\-\d{1,2}-\d{1,2}\s\d{2}\:\d{2}\:\d{2})/g) {$date = $1;}
+ 		if ($line =~ m/(0088FF)/g) {$faction = "ENLIGHTENT";}
   		if ($line =~ m/event,\s(\'\w*\')/g) {$nickname = $1;}
   		if ($line =~ m/(\d{2}\.\d*),\s(\d{2}\.\d*)/g) {$long = $1; $lat = $2;}
-  		if (defined($nickname) and defined($long) and defined($lat) and defined($faction)) {
-    			print "Enlightent player $nickname - $long $lat\n";
+  		if (defined($nickname) and defined($long) and defined($lat) and ($faction = "ENLIGHTENT")) {
+    			print "$faction player $nickname at $date - $long $lat\n";
 			open (NEW,">>Enlightent.txt");
 			print NEW "$long $lat \n";
 			close(NEW);
@@ -86,6 +89,7 @@ sub enl {
 			undef($long);
 			undef($lat);
 			undef($faction);
+			undef($date);
   		}
                 else {
 		print "Nothing to do...\n";
