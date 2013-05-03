@@ -1,25 +1,44 @@
 import requests
 import json
+import conf
 
-ACSID = ""
-csrftoken = ""
-lat = ""
-lon = ""
-plid = ""
-plqk = ""
+method = "dashboard.getThinnedEntitiesV2"
 
-playload = """{"method":"dashboard.getThinnedEntitiesV2","minLevelOfDetail":-1,"boundsParamsList":[{"id":"012023003213301030","qk":"012023003213301030","minLatE6":47333239,"minLngE6":13298950,"maxLatE6":47335100,"maxLngE6":13301697}]}"""
-url = """http://www.ingress.com/rpc/dashboard.getThinnedEntitiesV2"""
-cookie = "ACSID=; ingress.intelmap.lat=; ingress.intelmap.lng=; ingress.intelmap.zoom=; csrftoken=""
-headers = {
-"Host":"www.ingress.com",
-"Origin":"http://www.ingress.com",
-"Referer":"http://www.ingress.com/intel?ll=55.726337,37.788849&z=10",
-"User-Agent":"Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31",
-"X-CSRFToken":"OpKdCzFaSiJOZ55K8TcKAkF96pJWtZnt",
-"X-Requested-With":"XMLHttpRequest"
+payload = {
+    "method": method,
+    "zoom": 17,
+    "boundsParamsList": [
+    {
+        "id": "15_19804_10274",
+        "qk": "15_19804_10274",
+        "minLatE6": 55559709,
+        "minLngE6": 37573242,
+        "maxLatE6": 55565922,
+        "maxLngE6": 37584229
+    },
+    ]
 }
 
-r = requests.post(url, data=json.loads(payload), headers=headers, cookies=cookies)
+url = "http://www.ingress.com/rpc/" + method
+cookies = {
+    "ACSID": conf.ACSID,
+    "csrftoken": conf.csrftoken,
+}
+headers = {
+    "Host": "www.ingress.com",
+    "Origin": "http://www.ingress.com",
+    "Referer": "http://www.ingress.com/intel",
+    "User-Agent": "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31",
+    "X-CSRFToken": conf.csrftoken,
+    "X-Requested-With": "XMLHttpRequest",
+    "Content-type": "application/json; charset=UTF-8"
+}
 
-print r.text
+r = requests.post(
+    url,
+    data=json.dumps(payload),
+    headers=headers,
+    cookies=cookies
+)
+
+print json.dumps(json.loads(r.text), indent=4)
