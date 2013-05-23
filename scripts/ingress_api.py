@@ -6,11 +6,11 @@ method = "dashboard.getThinnedEntitiesV2"
 
 payload = {
     "method": method,
-    "zoom": 17,
+    "zoom": 11,
     "boundsParamsList": [
     {
-        "id": "15_19804_10274",
-        "qk": "15_19804_10274",
+        "id": "16_39620_20476",
+        "qk": "16_39620_20476",
         "minLatE6": 55559709,
         "minLngE6": 37573242,
         "maxLatE6": 55565922,
@@ -23,6 +23,14 @@ url = "http://www.ingress.com/rpc/" + method
 cookies = {
     "ACSID": conf.ACSID,
     "csrftoken": conf.csrftoken,
+    "ingress.intelmap.lat": "55.789194370444655",
+    "ingress.intelmap.lng": "37.63836622238159",
+    "ingress.intelmap.zoom": "11",
+    "ingress.intelmap.type": "2"
+#    "__utma": "24037858.1611298711.1359959785.1367483667.1367607050.44",
+#    "__utmb": "24037858.1.10.1367607050",
+#    "__utmc": 24037858,
+#    "__utmz=24037858.1367479669.42.8.utmcsr=justmynotes.ru|utmccn=(referral)|utmcmd=referral|utmcct": "/files/031.html"
 }
 headers = {
     "Host": "www.ingress.com",
